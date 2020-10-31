@@ -80,7 +80,7 @@ namespace Q_LearningVisualization {
         const int WALL = 5;
         const int START = 8;
 
-        private static Random rng = new Random();
+        private static readonly Random rng = new Random();
 
         //With stochatisity built in!
         private static int TakeAction(int state, Action action) {

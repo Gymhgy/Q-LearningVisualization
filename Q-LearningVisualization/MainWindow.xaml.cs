@@ -53,8 +53,8 @@ namespace Q_LearningVisualization {
             }
         }
 
-        List<Label> qLabels;
-        List<Canvas> qArrows;
+        readonly List<Label> qLabels;
+        readonly List<Canvas> qArrows;
         QLearningModel qrunner;
 
         private DispatcherTimer timer = new DispatcherTimer();
@@ -246,9 +246,9 @@ namespace Q_LearningVisualization {
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        bool shown = true;
+        bool shown = false;
         private void ShowHidePolicy_Click(object sender, RoutedEventArgs e) {
-            if (shown) {
+            if (!shown) {
                 qArrows.ForEach(x => {
                     double[] stateValues = qrunner.qtable[int.Parse((string)x.Tag)];
                     double max = stateValues.Max();
@@ -277,6 +277,7 @@ namespace Q_LearningVisualization {
 
                     x.Children.Add(arrow);
                 });
+                RunButton.IsEnabled = false;
             }
             else {
                 qArrows.ForEach(x => {
@@ -288,6 +289,7 @@ namespace Q_LearningVisualization {
                     }
                     agent.Visibility = Visibility.Visible;
                 });
+                RunButton.IsEnabled = true;
             }
 
             Button btn = sender as Button;
